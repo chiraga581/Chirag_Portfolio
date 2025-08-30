@@ -5,6 +5,7 @@ import { mockData } from '../mock';
 
 const Contact = () => {
   const { personal } = mockData;
+  const { isSubmitting, submitStatus, submitContact, resetStatus } = useContactForm();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,14 +18,21 @@ const Contact = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Reset status when user starts typing again
+    if (submitStatus) {
+      resetStatus();
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock form submission
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    
+    const result = await submitContact(formData);
+    
+    if (result.success) {
+      // Clear form on successful submission
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
   };
 
   return (
