@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ExternalLink, Github, Code, Zap, Brain } from 'lucide-react';
-import { mockData } from '../mock';
+import { usePortfolioData } from '../hooks/usePortfolioData';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
 
 const Projects = () => {
   const { projects } = mockData;
