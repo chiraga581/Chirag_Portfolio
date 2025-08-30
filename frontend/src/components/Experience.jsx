@@ -5,7 +5,47 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorMessage from './ErrorMessage';
 
 const Experience = () => {
-  const { experience } = mockData;
+  const { data, loading, errors } = usePortfolioData();
+
+  // Show loading state
+  if (loading.experience) {
+    return (
+      <section id="experience" className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Professional Experience
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Over 2+ years of hands-on experience in ServiceNow development and enterprise automation.
+            </p>
+          </div>
+          <LoadingSpinner text="Loading experience..." />
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (errors.experience) {
+    return (
+      <section id="experience" className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Professional Experience
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Over 2+ years of hands-on experience in ServiceNow development and enterprise automation.
+            </p>
+          </div>
+          <ErrorMessage message={errors.experience} />
+        </div>
+      </section>
+    );
+  }
+
+  const experience = data.experience || [];
 
   return (
     <section id="experience" className="py-24 bg-gray-50">
