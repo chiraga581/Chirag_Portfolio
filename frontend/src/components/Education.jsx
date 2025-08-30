@@ -5,7 +5,48 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorMessage from './ErrorMessage';
 
 const Education = () => {
-  const { education, certifications } = mockData;
+  const { data, loading, errors } = usePortfolioData();
+
+  // Show loading state
+  if (loading.education || loading.certifications) {
+    return (
+      <section id="education" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Education & Certifications
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Continuous learning and professional development in technology and engineering.
+            </p>
+          </div>
+          <LoadingSpinner text="Loading education and certifications..." />
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (errors.education || errors.certifications) {
+    return (
+      <section id="education" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Education & Certifications
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Continuous learning and professional development in technology and engineering.
+            </p>
+          </div>
+          <ErrorMessage message={errors.education || errors.certifications} />
+        </div>
+      </section>
+    );
+  }
+
+  const education = data.education || [];
+  const certifications = data.certifications || [];
 
   return (
     <section id="education" className="py-24 bg-white">
