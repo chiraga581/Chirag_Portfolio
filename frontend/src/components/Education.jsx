@@ -1,6 +1,8 @@
 import React from 'react';
 import { GraduationCap, Calendar, MapPin, Clock } from 'lucide-react';
-import { mockData } from '../mock';
+import { usePortfolioData } from '../hooks/usePortfolioData';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
 
 const Education = () => {
   const { education, certifications } = mockData;
