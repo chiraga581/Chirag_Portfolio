@@ -5,28 +5,86 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorMessage from './ErrorMessage';
 
 const Skills = () => {
-  const { skills } = mockData;
+  const { data, loading, errors } = usePortfolioData();
 
-  const skillCategories = [
-    {
-      title: "ServiceNow Expertise",
-      icon: <Settings className="w-6 h-6" />,
-      skills: skills.serviceNow,
-      color: "border-blue-200 bg-blue-50"
-    },
-    {
-      title: "Technical Skills", 
-      icon: <Code className="w-6 h-6" />,
-      skills: skills.technical,
-      color: "border-green-200 bg-green-50"
-    },
-    {
-      title: "AI/ML & Emerging Tech",
-      icon: <Brain className="w-6 h-6" />,
-      skills: skills.emerging,
-      color: "border-purple-200 bg-purple-50"
-    }
-  ];
+  // Show loading state
+  if (loading.skills) {
+    return (
+      <section id="skills" className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Technical Skills
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A comprehensive skill set spanning enterprise automation, 
+              system integration, and emerging AI/ML technologies.
+            </p>
+          </div>
+          <LoadingSpinner text="Loading skills..." />
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (errors.skills) {
+    return (
+      <section id="skills" className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Technical Skills
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A comprehensive skill set spanning enterprise automation, 
+              system integration, and emerging AI/ML technologies.
+            </p>
+          </div>
+          <ErrorMessage message={errors.skills} />
+        </div>
+      </section>
+    );
+  }
+
+  // Transform API data to match component format
+  const transformSkillsData = (skillsArray) => {
+    const skillCategories = [
+      {
+        title: "ServiceNow Expertise",
+        icon: <Settings className="w-6 h-6" />,
+        skills: [],
+        color: "border-blue-200 bg-blue-50",
+        category: "serviceNow"
+      },
+      {
+        title: "Technical Skills", 
+        icon: <Code className="w-6 h-6" />,
+        skills: [],
+        color: "border-green-200 bg-green-50",
+        category: "technical"
+      },
+      {
+        title: "AI/ML & Emerging Tech",
+        icon: <Brain className="w-6 h-6" />,
+        skills: [],
+        color: "border-purple-200 bg-purple-50",
+        category: "emerging"
+      }
+    ];
+
+    // Map API data to categories
+    skillsArray.forEach(skillData => {
+      const category = skillCategories.find(cat => cat.category === skillData.category);
+      if (category) {
+        category.skills = skillData.skills;
+      }
+    });
+
+    return skillCategories;
+  };
+
+  const skillCategories = transformSkillsData(data.skills || []);
 
   return (
     <section id="skills" className="py-24 bg-gray-50">
