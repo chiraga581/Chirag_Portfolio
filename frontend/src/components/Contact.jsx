@@ -193,11 +193,40 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-gray-900 text-white py-3 px-6 hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center gap-2 font-medium"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-6 font-medium transition-colors duration-200 flex items-center justify-center gap-2 ${
+                  isSubmitting 
+                    ? 'bg-gray-400 text-gray-700 cursor-not-allowed' 
+                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                }`}
               >
-                <Send className="w-4 h-4" />
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    Send Message
+                  </>
+                )}
               </button>
+
+              {/* Success/Error Messages */}
+              {submitStatus === 'success' && (
+                <div className="mt-4 p-4 bg-green-50 border border-green-200 flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <p className="text-green-800">Thank you for your message! I will get back to you soon.</p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 flex items-center gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                  <p className="text-red-800">Failed to send message. Please try again or contact me directly.</p>
+                </div>
+              )}
             </form>
           </div>
         </div>
