@@ -1,6 +1,8 @@
 import React from 'react';
 import { Building, MapPin, Calendar } from 'lucide-react';
-import { mockData } from '../mock';
+import { usePortfolioData } from '../hooks/usePortfolioData';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
 
 const Experience = () => {
   const { experience } = mockData;
