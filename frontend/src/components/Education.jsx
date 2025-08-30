@@ -121,7 +121,7 @@ const Education = () => {
               <div key={index} className="bg-white p-4 border border-gray-200 hover:border-gray-300 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0"></div>
-                  <span className="text-gray-700 text-sm font-medium">{cert}</span>
+                  <span className="text-gray-700 text-sm font-medium">{cert.name}</span>
                 </div>
               </div>
             ))}
