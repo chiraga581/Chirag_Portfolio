@@ -5,8 +5,48 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorMessage from './ErrorMessage';
 
 const Projects = () => {
-  const { projects } = mockData;
+  const { data, loading, errors } = usePortfolioData();
   const [selectedProject, setSelectedProject] = useState(null);
+
+  // Show loading state
+  if (loading.projects) {
+    return (
+      <section id="projects" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Featured Projects
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A showcase of enterprise automation solutions and emerging AI/ML research projects.
+            </p>
+          </div>
+          <LoadingSpinner text="Loading projects..." />
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (errors.projects) {
+    return (
+      <section id="projects" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4 font-mono">
+              Featured Projects
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A showcase of enterprise automation solutions and emerging AI/ML research projects.
+            </p>
+          </div>
+          <ErrorMessage message={errors.projects} />
+        </div>
+      </section>
+    );
+  }
+
+  const projects = data.projects || [];
 
   const getCategoryIcon = (category) => {
     if (category.includes('ServiceNow')) return <Code className="w-5 h-5" />;
