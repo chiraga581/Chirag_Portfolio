@@ -1,6 +1,8 @@
 import React from 'react';
 import { Code, Settings, Brain } from 'lucide-react';
-import { mockData } from '../mock';
+import { usePortfolioData } from '../hooks/usePortfolioData';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
 
 const Skills = () => {
   const { skills } = mockData;
